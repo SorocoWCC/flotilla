@@ -15,6 +15,8 @@ class vehiculo(models.Model):
     name = fields.Char(string='Placa', required=True)
     imagen_vehiculo = fields.Binary()
     motor = fields.Char(string='Motor')
+    dueno_registral = fields.Char(string='Dueño Registral')
+    rtv = fields.Selection([('Enero','Enero'), ('Febrero','Febrero'), ('Marzo','Marzo'), ('Abril','Abril'), ('Mayo','Mayo'), ('Junio','Junio'), ('Julio','Julio'), ('Agosto','Agosto'), ('Setiembre','Setiembre'), ('Octubre','Octubre'), ('Noviembre','Noviembre'), ('Diciembre','Diciembre')], string='RTV')
     chasis = fields.Char(string='Chasis')
     filtro_aceite = fields.Char(string='Filtro de Aceite')
     peso = fields.Integer(string='Peso')
@@ -30,12 +32,12 @@ class vehiculo(models.Model):
     @api.one
     @api.depends('gasto_ids')
     def _action_aceite(self):
-	contador = 0
-	for gasto in self.gasto_ids :
-		contador+= 1
-		if contador == len(self.gasto_ids):
-			fecha=date.today()+timedelta(days=int(self.periodo_cambio_aceite))
-			self.proximo_cambio_aceite = str(fecha)
+        contador = 0
+        for gasto in self.gasto_ids :
+          contador+= 1
+          if contador == len(self.gasto_ids):
+            fecha=datetime.strptime(str(gasto.fecha), '%Y-%m-%d')+timedelta(days=int(self.periodo_cambio_aceite))
+            self.proximo_cambio_aceite = str(fecha)
 
 # Clase Heredada Gasto
 class gasto(models.Model):

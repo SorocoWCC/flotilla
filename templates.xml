@@ -46,6 +46,8 @@
           			<field name="motor" class="oe_inline" />
             		<field name="chasis" class="oe_inline" />
             		<field name="peso" class="oe_inline" />
+            		<field name="dueno_registral" class="oe_inline" />
+            		<field name="rtv" class="oe_inline" />
 							</group>
 							<group string="Cambio de Aceite">
            			<field name="filtro_aceite" string="Tipo de Filtro de Aceite" />
