@@ -12,6 +12,7 @@ from dateutil import parser
 class vehiculo(models.Model):
     _name = "flotilla.vehiculo"
     _description = "Vehiculo"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     name = fields.Char(string='Placa', required=True)
     imagen_vehiculo = fields.Binary()
     motor = fields.Char(string='Motor')
@@ -45,7 +46,7 @@ class gasto(models.Model):
     _inherit = 'gasto'
     vehiculo_id = fields.Many2one(comodel_name='flotilla.vehiculo', string='Vehiculo')
     validar_vehiculo = fields.Float(compute='_validar_vehiculo', store=True, string="Validar Vehiculo")
-    tipo_gasto = fields.Selection([('regular','Regular'), ('aceite','Cambio de Aceite'), ('repuesto','Repuestos'), ('reparacione','Reparaciones Mecánicas') ], string='Categoría')
+    tipo_gasto = fields.Selection([('regular','Regular'), ('aceite','Cambio de Aceite'), ('repuesto','Repuestos'), ('reparacione','Reparaciones Mecánicas'), ('combustible','Combustible')  ], string='Categoría')
     _defaults = { 
     'tipo_gasto': 'regular',
     }
